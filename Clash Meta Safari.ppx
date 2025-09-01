@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxifierProfile version="101" platform="MacOSX" product_id="2" product_minver="200">
+    <Options>
+        <Resolve>
+            <AutoModeDetection enabled="true"/>
+            <ViaProxy enabled="false">
+                <TryLocalDnsFirst enabled="false"/>
+            </ViaProxy>
+            <ExclusionList ExcludeSimpleHostnames="true" ExcludeLocalhost="true" ExcludeSelfHostname="true" ExcludeLocalDomain="true">localhost;%SimpleHostnames%;%ComputerName%;*.local;
+</ExclusionList>
+        </Resolve>
+        <Encryption mode="basic"/>
+        <HttpProxiesSupport enabled="false"/>
+        <HandleDirectConnections enabled="false"/>
+        <ConnectionLoopDetection enabled="true"/>
+        <ProcessServices enabled="true"/>
+        <ProcessOtherUsers enabled="true"/>
+        <BlockUDP443 enabled="false"/>
+    </Options>
+    <ProxyList>
+        <Proxy id="100" type="SOCKS5">
+            <Address>127.0.0.1</Address>
+            <Port>7891</Port>
+            <Options>0</Options>
+        </Proxy>
+        <Proxy id="104" type="HTTPS">
+            <Address>127.0.0.1</Address>
+            <Port>7890</Port>
+            <Options>2</Options>
+        </Proxy>
+    </ProxyList>
+    <ChainList>
+        <Chain id="103">
+            <Name>Clash Meta Link</Name>
+            <Proxy enabled="true">100</Proxy>
+            <Proxy enabled="true">104</Proxy>
+        </Chain>
+    </ChainList>
+    <RuleList>
+        <Rule enabled="true">
+            <Name>Clash Meta</Name>
+            <Applications>"Safari.app"; "Safari"; com.apple.Safari</Applications>
+            <Action type="Chain">103</Action>
+        </Rule>
+        <Rule enabled="true">
+            <Name>Localhost</Name>
+            <Targets>localhost; 127.0.0.1; ::1; %ComputerName%</Targets>
+            <Action type="Direct"/>
+        </Rule>
+        <Rule enabled="true">
+            <Name>Default</Name>
+            <Action type="Direct"/>
+        </Rule>
+    </RuleList>
+</ProxifierProfile>
